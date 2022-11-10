@@ -6,9 +6,17 @@ public partial class MovingSystemBase : SystemBase
     protected override void OnUpdate()
     {
         /*run in main thread*/
-        foreach((TransformAspect transformAspect, RefRO<ECSDataSpeed> _ECSDataSpeed) in SystemAPI.Query<TransformAspect,RefRO<ECSDataSpeed>>())
+        foreach((   TransformAspect transformAspect,
+                    RefRO<SpeedECSData> _ECSDataSpeed,
+                    RefRO<TargetPositionECSData> _tarGetPositionECSData)
+
+        in SystemAPI.Query<
+                    TransformAspect,
+                    RefRO<SpeedECSData>,
+                    RefRO<TargetPositionECSData>>())
         {
-            transformAspect.Position += new float3(SystemAPI.Time.DeltaTime*_ECSDataSpeed.ValueRO.value, 0, 0);
+            float3  direction = math.normalize(_tarGetPositionECSData.ValueRO._targetPositionValue - transformAspect.Position);
+            transformAspect.Position += direction * SystemAPI.Time.DeltaTime*_ECSDataSpeed.ValueRO._speedValue;
         }
 
         /*run in different ways*/
