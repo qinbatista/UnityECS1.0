@@ -1,6 +1,4 @@
 using Unity.Entities;
-using Unity.Transforms;
-using Unity.Mathematics;
 using Unity.Jobs;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Burst;

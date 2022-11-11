@@ -26,19 +26,19 @@ public partial class MovingSystemBase : SystemBase
             run in main thread
             use IAspect to simplify the code
         */
-        // foreach (MoveAspect _moveAspect in SystemAPI.Query<MoveAspect>())
-        // {
-        //     RefRW<RandomECSData> randomComponent = SystemAPI.GetSingletonRW<RandomECSData>();
-        //     _moveAspect.Move(SystemAPI.Time.DeltaTime);
-        // }
+        foreach (MoveAspect _moveAspect in SystemAPI.Query<MoveAspect>())
+        {
+            RefRW<RandomComponent> randomComponent = SystemAPI.GetSingletonRW<RandomComponent>();
+            _moveAspect.Move(SystemAPI.Time.DeltaTime);
+        }
 
         /*
             run in different ways
         */
-        // Entities.ForEach((TransformAspect TransformAspect)=>
-        // {
-        //     TransformAspect.Position += new float3(SystemAPI.Time.DeltaTime, 0, 0);
-        // }).ScheduleParallel(); //run multiple threads
+        Entities.ForEach((TransformAspect TransformAspect)=>
+        {
+            TransformAspect.Position += new float3(SystemAPI.Time.DeltaTime, 0, 0);
+        }).ScheduleParallel(); //run multiple threads
         // }).Schedule(); //run on single work thread
         // }).Run(); //run on main thread
     }
