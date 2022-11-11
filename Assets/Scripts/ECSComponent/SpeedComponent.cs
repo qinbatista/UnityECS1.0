@@ -1,6 +1,6 @@
 
 using Unity.Entities;
-public struct SpeedECSData:IComponentData
+public struct SpeedComponent:IComponentData
 {
     public float _speedValue;
 }

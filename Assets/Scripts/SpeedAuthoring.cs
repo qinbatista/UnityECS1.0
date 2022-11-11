@@ -9,6 +9,6 @@ public class SpeedBacker : Baker<SpeedAuthoring>
 {
     public override void Bake(SpeedAuthoring authoring)
     {
-        AddComponent(new SpeedECSData{_speedValue = authoring._speedValue});
+        AddComponent(new SpeedComponent{_speedValue = authoring._speedValue});
     }
 }

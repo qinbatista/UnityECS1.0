@@ -10,6 +10,6 @@ public class TargetPositionBacker : Baker<TargetAuthoring>
 {
     public override void Bake(TargetAuthoring authoring)
     {
-        AddComponent(new TargetPositionECSData { _targetPositionValue = authoring._targetPositionValue });
+        AddComponent(new TargetPositionComponent { _targetPositionValue = authoring._targetPositionValue });
     }
 }
