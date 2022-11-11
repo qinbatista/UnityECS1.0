@@ -19,7 +19,7 @@ public readonly partial struct MoveAspect : IAspect
         if (math.distance(_transformAspect.Position, _tarGetPositionECSData.ValueRO._targetPositionValue) < _maxDistance)
         {
             _tarGetPositionECSData.ValueRW._targetPositionValue = GetNewPosition(randomComponent);
-            Debug.Log("new position:" + _tarGetPositionECSData.ValueRW._targetPositionValue);
+            // Debug.Log("new position:" + _tarGetPositionECSData.ValueRW._targetPositionValue);
         }
     }
     float3 GetNewPosition(RefRW<RandomComponent> randomComponent)
