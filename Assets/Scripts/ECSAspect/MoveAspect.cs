@@ -9,11 +9,21 @@ public readonly partial struct MoveAspect : IAspect
 {
     readonly TransformAspect _transformAspect;
     readonly RefRO<SpeedECSData> _ECSDataSpeed;
-    readonly RefRO<TargetPositionECSData> _tarGetPositionECSData;
-
-    public void Move(float _deltaTime)
+    readonly RefRW<TargetPositionECSData> _tarGetPositionECSData;
+    const float _maxDistance = 5;
+    public void Move(float _deltaTime,RefRW<RandomECSData> randomComponent)
     {
-            float3  direction = math.normalize(_tarGetPositionECSData.ValueRO._targetPositionValue - _transformAspect.Position);
-            _transformAspect.Position += direction * _deltaTime*_ECSDataSpeed.ValueRO._speedValue;
+        float3 direction = math.normalize(_tarGetPositionECSData.ValueRO._targetPositionValue - _transformAspect.Position);
+        _transformAspect.Position += direction * _deltaTime * _ECSDataSpeed.ValueRO._speedValue;
+        if (math.distance(_transformAspect.Position, _tarGetPositionECSData.ValueRO._targetPositionValue) < _maxDistance)
+        {
+            //new data
+            _tarGetPositionECSData.ValueRW._targetPositionValue = GetNewPosition(randomComponent);
+            Debug.Log("new position:" + _tarGetPositionECSData.ValueRW._targetPositionValue);
+        }
+    }
+    float3 GetNewPosition(RefRW<RandomECSData> randomComponent)
+    {
+        return new float3(randomComponent.ValueRW._random.NextFloat(0, 10), randomComponent.ValueRW._random.NextFloat(0, 10), randomComponent.ValueRW._random.NextFloat(0, 10));
     }
 }

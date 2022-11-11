@@ -28,7 +28,8 @@ public partial class MovingSystemBase : SystemBase
         */
         foreach (MoveAspect _moveAspect in SystemAPI.Query<MoveAspect>())
         {
-            _moveAspect.Move(SystemAPI.Time.DeltaTime);
+            RefRW<RandomECSData> randomComponent = SystemAPI.GetSingletonRW<RandomECSData>();
+            _moveAspect.Move(SystemAPI.Time.DeltaTime,randomComponent);
         }
 
         /*run in different ways*/
